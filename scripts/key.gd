@@ -8,8 +8,9 @@ var o = {1 : ["world."]}
 var o2 = { 1 : [2]}
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	engine.dialogue_started.connect(_dialogue)
-	engine.choices_presented.connect(_options)
+	if is_instance_valid(engine):
+		engine.dialogue_started.connect(_dialogue)
+		engine.choices_presented.connect(_options)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

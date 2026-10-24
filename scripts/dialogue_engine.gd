@@ -22,9 +22,6 @@ func dialogue() -> void:
 	dialogue_started.emit()
 	choices_presented.emit()
 
-	
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
