@@ -9,7 +9,6 @@ var directionvar = 1
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
-	position = Vector2(900,500)
 	scale.x = 0.145
 	scale.y = 0.145
 	pass # Replace with function body.
@@ -17,7 +16,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print(rotation)
 	if state == "active" :
 		if not timervar == 20:
 			if directionvar == -1 :
@@ -48,4 +46,3 @@ func _process(delta: float) -> void:
 				timervar = 20
 			elif (randi_range(0,10)) == 5 :
 				pass
-	print(timervar)
