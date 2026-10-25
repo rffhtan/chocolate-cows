@@ -9,7 +9,7 @@ var directionvar = 1
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
-	position = Vector2(randf_range(23,1125),randf_range(0,650))
+	position = Vector2(randi_range(300,1000),randi_range(50,600))
 	scale.x = 0.145
 	scale.y = 0.145
 	pass # Replace with function body.
@@ -28,11 +28,11 @@ func _process(delta: float) -> void:
 		if timervar == 20 :
 			timervar = 0
 			if (randi_range(0,10)) == 1 :
-				speed = 80
+				speed = 150
 				scale.x = -0.145
 				directionvar = -1
 			elif (randi_range(0,10)) == 2 :
-				speed = 80
+				speed = 150
 				scale.x = 0.145
 				directionvar = 1
 			elif (randi_range(0,10)) == 3 :
@@ -47,8 +47,21 @@ func _process(delta: float) -> void:
 				timervar = 20
 			elif (randi_range(0,10)) == 5 :
 				pass
-	var collision_info = move_and_collide(velocity * delta)
-	if collision_info:
-		velocity.bounce(collision_info.get_normal())
-		velocity = velocity.normalized() * speed
-	rotation = 0
+	if self.position.x >= 1100 : 
+		state = "bounce"
+		print("boom")
+		scale.x = 0.145
+		directionvar = 1
+		speed = 150
+		while self.position.x >= 1000 :
+			position.x += speed * delta
+		state = "active"
+	if self.position.x <= -1000 : 
+		state = "bounce"
+		print("bang")
+		scale.x = -0.145
+		directionvar = -1
+		speed = 150
+		while self.position.x >= -900 :
+			position.x -= speed * delta
+		state = "active"
