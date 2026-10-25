@@ -5,7 +5,8 @@ extends RichTextLabel
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hide()
-	engine.dialogue_started.connect(_dialogue)
+	if is_instance_valid(engine):
+		engine.dialogue_started.connect(_dialogue)
 	
 func _dialogue():
 	show()

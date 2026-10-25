@@ -9,6 +9,7 @@ var directionvar = 1
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
+	position = Vector2(randf_range(23,1125),randf_range(0,650))
 	scale.x = 0.145
 	scale.y = 0.145
 	pass # Replace with function body.
@@ -46,3 +47,8 @@ func _process(delta: float) -> void:
 				timervar = 20
 			elif (randi_range(0,10)) == 5 :
 				pass
+	var collision_info = move_and_collide(velocity * delta)
+	if collision_info:
+		velocity.bounce(collision_info.get_normal())
+		velocity = velocity.normalized() * speed
+	rotation = 0

@@ -1,0 +1,124 @@
+[gd_scene load_steps=13 format=3 uid="uid://ccj4exj36ilr"]
+
+[ext_resource type="Script" uid="uid://x60qdpe3okjk" path="res://scripts/dialogue_engine.gd" id="1_ajmj3"]
+[ext_resource type="Script" uid="uid://bsg4fg7jvq3b5" path="res://scripts/dialoguebox.gd" id="2_mblti"]
+[ext_resource type="Script" uid="uid://wqkx6uonyjxf" path="res://scripts/panel.gd" id="3_1lttb"]
+[ext_resource type="FontFile" uid="uid://b3h7kd2swjemo" path="res://pixelta/Pixelta.ttf" id="4_85mp7"]
+[ext_resource type="Script" uid="uid://vqm8qh216wel" path="res://scripts/dialoguetext.gd" id="5_5mesi"]
+[ext_resource type="Script" uid="uid://di06bdtl37lla" path="res://scripts/texture_rect.gd" id="6_6fyao"]
+[ext_resource type="Script" uid="uid://hg016n42b5qr" path="res://scripts/key.gd" id="7_mywgf"]
+[ext_resource type="Script" uid="uid://cb1btepbrraur" path="res://scripts/options.gd" id="8_3ff0t"]
+[ext_resource type="Script" uid="uid://b6lp84noc1vxy" path="res://scripts/option.gd" id="9_ht4hd"]
+[ext_resource type="Script" uid="uid://dgpvhc8n6uavx" path="res://scripts/option_2.gd" id="10_0sor1"]
+[ext_resource type="Script" uid="uid://dyqu82rh6iv2r" path="res://scripts/option_3.gd" id="11_7qmok"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hlw5q"]
+
+[node name="Dialogue_Engine" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_ajmj3")
+
+[node name="dialoguebox" type="CanvasLayer" parent="."]
+script = ExtResource("2_mblti")
+
+[node name="panel" type="Panel" parent="dialoguebox"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -125.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("3_1lttb")
+
+[node name="diatext" type="RichTextLabel" parent="dialoguebox"]
+offset_left = 125.0
+offset_top = 533.0
+offset_right = 1267.0
+offset_bottom = 594.11115
+scale = Vector2(0.9, 0.9)
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("4_85mp7")
+theme_override_font_sizes/normal_font_size = 30
+scroll_active = false
+scroll_following = true
+script = ExtResource("5_5mesi")
+
+[node name="character" type="TextureRect" parent="dialoguebox"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -120.0
+offset_right = 120.0
+offset_bottom = -10.0
+grow_vertical = 0
+size_flags_horizontal = 4
+mouse_filter = 2
+texture = SubResource("CompressedTexture2D_hlw5q")
+expand_mode = 1
+script = ExtResource("6_6fyao")
+
+[node name="script_manager" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("7_mywgf")
+
+[node name="options" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -536.0
+offset_bottom = -284.0
+script = ExtResource("8_3ff0t")
+
+[node name="option1" type="Button" parent="options"]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 595.0
+offset_right = 400.0
+offset_bottom = 635.0
+mouse_default_cursor_shape = 2
+keep_pressed_outside = true
+script = ExtResource("9_ht4hd")
+
+[node name="option2" type="Button" parent="options"]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 595.0
+offset_right = 750.0
+offset_bottom = 635.0
+mouse_default_cursor_shape = 2
+text = "2"
+script = ExtResource("10_0sor1")
+
+[node name="option3" type="Button" parent="options"]
+layout_mode = 0
+offset_left = 850.0
+offset_top = 595.0
+offset_right = 1100.0
+offset_bottom = 635.0
+mouse_default_cursor_shape = 2
+text = "3"
+script = ExtResource("11_7qmok")
+
+[connection signal="key1pressed" from="options" to="options/option1" method="_button_pressed"]
+[connection signal="key2pressed" from="options" to="options/option2" method="_button_pressed"]
+[connection signal="key3pressed" from="options" to="options/option3" method="_button_pressed"]
+[connection signal="pressed" from="options/option1" to="options/option1" method="_button_pressed"]
+[connection signal="pressed" from="options/option2" to="options/option2" method="_button_pressed"]
+[connection signal="pressed" from="options/option3" to="options/option3" method="_button_pressed"]

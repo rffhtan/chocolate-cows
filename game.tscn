@@ -1,10 +1,42 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfe4877x1dr7d"]
+[gd_scene load_steps=6 format=3 uid="uid://cfe4877x1dr7d"]
 
 [ext_resource type="Script" uid="uid://dvmnicyis47jl" path="res://game.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://dpgrhw8gbme1g" path="res://cow.tscn" id="2_e2o6t"]
+[ext_resource type="Script" uid="uid://bbki45d2mqjkn" path="res://screen.gd" id="2_feb5d"]
+[ext_resource type="PackedScene" uid="uid://buvr4ik2mblqj" path="res://chocolate_cows.tscn" id="4_fc0e3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fc0e3"]
+size = Vector2(100.75, 1172.1875)
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_80nbo")
 
+[node name="screen" type="StaticBody2D" parent="."]
+constant_linear_velocity = Vector2(-200, 0)
+script = ExtResource("2_feb5d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="screen"]
+position = Vector2(-53, 311)
+shape = SubResource("RectangleShape2D_fc0e3")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="screen"]
+position = Vector2(545, 696)
+rotation = -1.5707964
+shape = SubResource("RectangleShape2D_fc0e3")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="screen"]
+position = Vector2(1205, 311)
+shape = SubResource("RectangleShape2D_fc0e3")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="screen"]
+position = Vector2(567, -54)
+rotation = 1.5707963
+shape = SubResource("RectangleShape2D_fc0e3")
+
 [node name="cow" parent="." instance=ExtResource("2_e2o6t")]
+visible = false
+y_sort_enabled = true
 input_pickable = true
+speed = 80
+
+[node name="Dialogue_Engine" parent="." instance=ExtResource("4_fc0e3")]
