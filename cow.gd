@@ -9,7 +9,7 @@ var directionvar = 1
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
-	position = Vector2(randi_range(300,1000),randi_range(50,600))
+	position = Vector2(randi_range(300,1000),randi_range(100,550))
 	scale.x = 0.145
 	scale.y = 0.145
 	pass # Replace with function body.
@@ -17,6 +17,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+#active (as in idle) behaviors
 	if state == "active" :
 		if not timervar == 20:
 			if directionvar == -1 :
@@ -47,21 +48,25 @@ func _process(delta: float) -> void:
 				timervar = 20
 			elif (randi_range(0,10)) == 5 :
 				pass
+
+# bouncing off walls script
 	if self.position.x >= 1100 : 
 		state = "bounce"
-		print("boom")
 		scale.x = 0.145
 		directionvar = 1
 		speed = 150
-		while self.position.x >= 1000 :
-			position.x += speed * delta
 		state = "active"
-	if self.position.x <= -1000 : 
+		print(timervar)
+	if self.position.x <= 100 : 
 		state = "bounce"
-		print("bang")
 		scale.x = -0.145
 		directionvar = -1
 		speed = 150
-		while self.position.x >= -900 :
-			position.x -= speed * delta
 		state = "active"
+		print(timervar)
+
+# on click behaviors 
+#breed
+
+#feed
+#lead 

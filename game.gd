@@ -1,11 +1,12 @@
 extends Node2D
 var cow = preload("res://cow.tscn")
-
-
+var dialogue = preload("res://dialogue.tscn")
+var instancenum : int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print("ready")
-	clone()
+	for i in 1 :
+		clone()
 	randomize()
 	pass # Replace with function body.
 
@@ -13,17 +14,14 @@ func clone():
 	print("start")
 	var instance = cow.instantiate()
 	add_child(instance)
-	var instance2 = cow.instantiate()
-	add_child(instance2)
-	#var instance3 = cow.instantiate()
-	#add_child(instance3)
+	instancenum += 1
 	#var instance4 = cow.instantiate()
 	#add_child(instance4)
-	print("Cow count: ", get_child_count())
-	print("Cow 1: ", instance.position)
-	print("Cow 2: ", instance2.position)
+	print("Cow count: ", get_child_count() - 3)
+	print("Cow" + str(instancenum) + ": ", instance.position)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if (Input.is_action_just_pressed("ui_accept")) :
+		clone()
 	
