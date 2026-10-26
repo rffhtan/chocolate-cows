@@ -10,7 +10,6 @@ func _ready() -> void:
 	button.pressed.connect(_button_pressed)
 
 func _button_pressed():
-		print("2pressed")
 		if  manager.o2.has(dialogueid.dialogueid) and ((manager.o2[dialogueid.dialogueid])).size() >= 2 :
 			await get_tree().create_timer(0.1).timeout
 			dialogueid.dialogueid = ((manager.o2[dialogueid.dialogueid])[1])

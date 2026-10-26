@@ -13,7 +13,6 @@ func _ready() -> void:
 	z_index = 5
 
 func _button_pressed():
-		print("1pressed")
 		if  manager.o2.has(dialogueid.dialogueid) and ((manager.o2[dialogueid.dialogueid])).size() >= 1 :
 			await get_tree().create_timer(0.1).timeout
 			dialogueid.dialogueid = ((manager.o2[dialogueid.dialogueid])[0])
