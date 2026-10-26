@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var detect = $Area2D 
 @onready var menu = $PopupMenu
 @onready var display = $Sprite2D
+var target_position: Vector2
 var timervar = 0
 var directionvar = 1
 
@@ -16,8 +17,10 @@ func _ready() -> void:
 	scale.y = 0.145
 	pass # Replace with function body.
 	detect.cow_clicked.connect(_clicked)
+	menu.id_pressed.connect( _on_id_pressed)
 
 func _clicked() :
+	state = "clicked"
 	menu.popup(Rect2i(self.position.x, self.position.y, 100, 100))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,11 +38,11 @@ func _process(delta: float) -> void:
 			timervar = 0
 			if (randi_range(0,10)) == 1 :
 				speed = 150
-				display.scale.x = -1
+				display.scale.x = -1  
 				directionvar = -1
 			elif (randi_range(0,10)) == 2 :
 				speed = 150
-				display.scale.x = 1
+				display.scale.x = 1  
 				directionvar = 1
 			elif (randi_range(0,10)) == 3 :
 				speed = 0
@@ -57,21 +60,64 @@ func _process(delta: float) -> void:
 # bouncing off walls script
 	if self.position.x >= 1100 : 
 		state = "bounce"
-		display.scale.x = 1
+		display.scale.x = 1  
 		directionvar = 1
 		speed = 150
 		state = "active"
 		print(timervar)
 	if self.position.x <= 100 : 
 		state = "bounce"
-		display.scale.x = -1
+		display.scale.x = -1  
 		directionvar = -1
 		speed = 150
 		state = "active"
 		print(timervar)
 
+	if state == "clicked" :
+		if menu.visible :
+			speed = 0
+		elif menu.visible == false :
+			speed = 150
+			state = "active"
+
+	if state == "following":
+		speed = 150
+		if Input.is_action_just_pressed("mouse_leftclick"):
+			target_position = get_global_mouse_position()
+			state = "moving_to_target"
+
+	if state == "moving_to_target":
+		position.x = move_toward(
+		position.x,
+		target_position.x,
+		speed * delta
+		)
+
+		if target_position.x > position.x :
+			display.scale.x = -1
+		if target_position.x < position.x :
+			display.scale.x = 1
+
+	if state == "moving_to_target":
+		position.y = move_toward(
+		position.y,
+		target_position.y,
+		speed * delta
+		)
+
+		if abs(position.y - target_position.y) < 1 and  abs(position.x - target_position.x) < 1:
+			await get_tree().create_timer(1).timeout
+			state = "active"
 # on click behaviors 
 #breed
+func _on_id_pressed(id : int):
+		if id == 0 :
+			print("breed")
+		if id == 1 :
+			print("feed")
+		if id == 2 :
+			print("lead")
+			state = "following"
 
 #feed
 #lead 

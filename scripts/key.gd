@@ -1,5 +1,5 @@
 extends Node
-@onready var engine = get_node("/root/Dialogue_Engine")
+@onready var engine = get_node("/root/game/Dialogue_Engine")
 @export var props = load("res://dialogueresources.tres")
 var options : Array 
 var options2 : Array

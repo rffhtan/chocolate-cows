@@ -1,6 +1,6 @@
 extends Button
-@onready var manager = get_node("/root/Dialogue_Engine/script_manager")
-@onready var engine = get_node("/root/Dialogue_Engine")
+@onready var manager = get_node("/root/game/Dialogue_Engine/script_manager")
+@onready var engine = get_node("/root/game/Dialogue_Engine")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

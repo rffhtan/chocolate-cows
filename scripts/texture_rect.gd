@@ -1,5 +1,5 @@
 extends TextureRect
-@onready var engine = get_node("/root/Dialogue_Engine")
+@onready var engine = get_node("/root/game/Dialogue_Engine")
 @export var stats: DialogueProperties
 
 # Called when the node enters the scene tree for the first time.

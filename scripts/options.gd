@@ -1,6 +1,6 @@
 extends Control
-@onready var engine = get_node("/root/Dialogue_Engine")
-@onready var manager = get_node("/root/Dialogue_Engine/script_manager")
+@onready var engine = get_node("/root/game/Dialogue_Engine")
+@onready var manager = get_node("/root/game/Dialogue_Engine/script_manager")
 var dialoguestarted = false
 signal key1pressed()
 signal key2pressed()
