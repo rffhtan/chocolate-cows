@@ -15,5 +15,4 @@ func _on_mouse_exited() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if (Input.is_action_just_pressed("mouse_leftclick")) and mouse == true :
-		print("Object clicked!")
 		cow_clicked.emit()

@@ -64,14 +64,12 @@ func _process(delta: float) -> void:
 		directionvar = 1
 		speed = 150
 		state = "active"
-		print(timervar)
 	if self.position.x <= 100 : 
 		state = "bounce"
 		display.scale.x = -1  
 		directionvar = -1
 		speed = 150
 		state = "active"
-		print(timervar)
 
 	if state == "clicked" :
 		if menu.visible :
@@ -92,18 +90,18 @@ func _process(delta: float) -> void:
 		target_position.x,
 		speed * delta
 		)
-
-		if target_position.x > position.x :
-			display.scale.x = -1
-		if target_position.x < position.x :
-			display.scale.x = 1
-
-	if state == "moving_to_target":
 		position.y = move_toward(
 		position.y,
 		target_position.y,
 		speed * delta
 		)
+		if target_position.x > position.x :
+			display.scale.x = -1
+		if target_position.x < position.x :
+			display.scale.x = 1
+
+
+
 
 		if abs(position.y - target_position.y) < 1 and  abs(position.x - target_position.x) < 1:
 			await get_tree().create_timer(1).timeout
@@ -112,11 +110,10 @@ func _process(delta: float) -> void:
 #breed
 func _on_id_pressed(id : int):
 		if id == 0 :
-			print("breed")
+			state = "breeding"
 		if id == 1 :
-			print("feed")
+			state = "eating"
 		if id == 2 :
-			print("lead")
 			state = "following"
 
 #feed

@@ -4,19 +4,15 @@ var dialogue = preload("res://dialogue.tscn")
 var instancenum : int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print("ready")
 	for i in 1 :
 		clone()
 	randomize()
 	pass # Replace with function body.
 
 func clone():
-	print("start")
 	var instance = cow.instantiate()
 	add_child(instance)
 	instancenum += 1
-	print("Cow count: ", get_child_count() - 3)
-	print("Cow" + str(instancenum) + ": ", instance.position)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
