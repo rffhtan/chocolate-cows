@@ -9,11 +9,9 @@ signal key3pressed()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hide()
-	if is_instance_valid(engine):
-		engine.choices_presented.connect(_options)
-		engine.dialogue_started.connect(_dialogue)
-	while not dialogueid.dialogueid == 17 :
-		await get_tree().create_timer(1.5).timeout
+	engine.choices_presented.connect(_options)
+	engine.dialogue_started.connect(_dialogue)
+
 func _options():
 	show()
 

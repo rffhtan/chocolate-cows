@@ -4,11 +4,12 @@ extends CharacterBody2D
 @onready var detect = $Area2D 
 @onready var menu = $PopupMenu
 @onready var display = $Sprite2D
+@onready var dialogue = get_node("/root/game/Dialogue_Engine")
 var target_position: Vector2
 var timervar = 0
 var directionvar = 1
-
-
+signal breeding
+signal feeding
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
@@ -18,6 +19,8 @@ func _ready() -> void:
 	pass # Replace with function body.
 	detect.cow_clicked.connect(_clicked)
 	menu.id_pressed.connect( _on_id_pressed)
+	var dialogue_engine = get_node("../Dialogue_Engine")
+	dialogue_engine.connect_cow(self)
 
 func _clicked() :
 	state = "clicked"
@@ -99,20 +102,23 @@ func _process(delta: float) -> void:
 			display.scale.x = -1
 		if target_position.x < position.x :
 			display.scale.x = 1
-
-
-
-
 		if abs(position.y - target_position.y) < 1 and  abs(position.x - target_position.x) < 1:
 			await get_tree().create_timer(1).timeout
 			state = "active"
+
+	if dialogueid.dialogueid == 3 and (not state == "following" and not state == "moving_to_target") :
+		state = "active"
+
+
 # on click behaviors 
 #breed
 func _on_id_pressed(id : int):
 		if id == 0 :
 			state = "breeding"
+			breeding.emit()
 		if id == 1 :
 			state = "eating"
+			feeding.emit()
 		if id == 2 :
 			state = "following"
 

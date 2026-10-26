@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvmnicyis47jl" path="res://game.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://dpgrhw8gbme1g" path="res://cow.tscn" id="2_e2o6t"]
-[ext_resource type="PackedScene" uid="uid://buvr4ik2mblqj" path="res://chocolate_cows.tscn" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://buvr4ik2mblqj" path="res://dialogue.tscn" id="4_fc0e3"]
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_80nbo")
@@ -14,4 +14,3 @@ input_pickable = true
 speed = 80
 
 [node name="Dialogue_Engine" parent="." instance=ExtResource("4_fc0e3")]
-visible = false

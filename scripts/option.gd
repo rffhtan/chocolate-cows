@@ -1,13 +1,16 @@
 extends Button
 @onready var manager = get_node("/root/game/Dialogue_Engine/script_manager")
 @onready var engine = get_node("/root/game/Dialogue_Engine")
+@onready var cow = get_node("/root/game/cow")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if is_instance_valid(engine):
-		engine.choices_presented.connect(_options)	
+	show()
+	engine.choices_presented.connect(_options)	
 	var button = Button.new()
 	button.pressed.connect(_button_pressed)
+	set_position(Vector2(550,320))
+	z_index = 5
 
 func _button_pressed():
 		print("1pressed")
@@ -18,10 +21,13 @@ func _button_pressed():
 func _options():
 	if  manager.o.has(dialogueid.dialogueid) and (manager.o[dialogueid.dialogueid]).size() >= (1):
 		show()
-		set_text(((manager.o[dialogueid.dialogueid])[0]))	
+		set_text(((manager.o[dialogueid.dialogueid])[0]))
+
 	else :
 		hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if dialogueid.dialogueid == 3 :
+		hide()
 	pass

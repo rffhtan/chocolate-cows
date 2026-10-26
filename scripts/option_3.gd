@@ -5,7 +5,7 @@ extends Button
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if is_instance_valid(engine):
-		engine.choices_presented.connect(_options)	
+		engine.choices_presented.connect(_options)
 	var button = Button.new()
 	button.pressed.connect(_button_pressed)
 
