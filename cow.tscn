@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpgrhw8gbme1g"]
+[gd_scene load_steps=7 format=3 uid="uid://dpgrhw8gbme1g"]
 
 [ext_resource type="Script" uid="uid://bugs8n3hgcxfq" path="res://cow.gd" id="1_nuh3y"]
 [ext_resource type="Texture2D" uid="uid://bulqfk0li6j0e" path="res://cow_PNG50580.png" id="1_yj05v"]
 [ext_resource type="Script" uid="uid://fd3sa5ptrv82" path="res://cowarea.gd" id="2_y5k1g"]
 [ext_resource type="FontFile" uid="uid://b3h7kd2swjemo" path="res://pixelta/Pixelta.ttf" id="3_m1w7b"]
+[ext_resource type="Script" uid="uid://bsbt57l7o8013" path="res://menu.gd" id="5_uaxjc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yj05v"]
 size = Vector2(1686, 1324)
@@ -15,18 +16,21 @@ script = ExtResource("1_nuh3y")
 script = ExtResource("2_y5k1g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+z_index = 2
 position = Vector2(-22, -8)
 shape = SubResource("RectangleShape2D_yj05v")
-disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(12, 4)
 texture = ExtResource("1_yj05v")
 
 [node name="PopupMenu" type="PopupMenu" parent="."]
+transparent_bg = false
 oversampling_override = 1.0
+size = Vector2i(1176, 632)
 visible = true
 theme_override_fonts/font = ExtResource("3_m1w7b")
+theme_override_font_sizes/font_size = 200
 item_count = 3
 item_0/text = "BREED"
 item_0/id = 0
@@ -34,11 +38,14 @@ item_1/text = "FEED"
 item_1/id = 1
 item_2/text = "LEAD"
 item_2/id = 2
+script = ExtResource("5_uaxjc")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-22, -8)
 shape = SubResource("RectangleShape2D_yj05v")
 disabled = true
 
+[connection signal="input_event" from="Area2D" to="Area2D" method="_on_input_event"]
 [connection signal="mouse_entered" from="Area2D" to="Area2D" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="Area2D" method="_on_mouse_exited"]

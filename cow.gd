@@ -1,9 +1,11 @@
 extends CharacterBody2D
 @export var state = "active"
 @export var speed = 150
+@onready var detect = $Area2D 
+@onready var menu = $PopupMenu
+@onready var display = $Sprite2D
 var timervar = 0
 var directionvar = 1
-
 
 
 # Called when the node enters the scene tree for the first time.
@@ -13,7 +15,10 @@ func _ready() -> void:
 	scale.x = 0.145
 	scale.y = 0.145
 	pass # Replace with function body.
+	detect.cow_clicked.connect(_clicked)
 
+func _clicked() :
+	menu.popup(Rect2i(self.position.x, self.position.y, 100, 100))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -30,11 +35,11 @@ func _process(delta: float) -> void:
 			timervar = 0
 			if (randi_range(0,10)) == 1 :
 				speed = 150
-				scale.x = -0.145
+				display.scale.x = -1
 				directionvar = -1
 			elif (randi_range(0,10)) == 2 :
 				speed = 150
-				scale.x = 0.145
+				display.scale.x = 1
 				directionvar = 1
 			elif (randi_range(0,10)) == 3 :
 				speed = 0
@@ -52,14 +57,14 @@ func _process(delta: float) -> void:
 # bouncing off walls script
 	if self.position.x >= 1100 : 
 		state = "bounce"
-		scale.x = 0.145
+		display.scale.x = 1
 		directionvar = 1
 		speed = 150
 		state = "active"
 		print(timervar)
 	if self.position.x <= 100 : 
 		state = "bounce"
-		scale.x = -0.145
+		display.scale.x = -1
 		directionvar = -1
 		speed = 150
 		state = "active"

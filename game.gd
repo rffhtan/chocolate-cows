@@ -15,8 +15,6 @@ func clone():
 	var instance = cow.instantiate()
 	add_child(instance)
 	instancenum += 1
-	#var instance4 = cow.instantiate()
-	#add_child(instance4)
 	print("Cow count: ", get_child_count() - 3)
 	print("Cow" + str(instancenum) + ": ", instance.position)
 
