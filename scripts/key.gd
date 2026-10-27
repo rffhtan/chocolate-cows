@@ -4,7 +4,7 @@ extends Node
 var options : Array 
 var options2 : Array
 var d = {1 : ["Press another cow to breed this one with. (UNFINISHED)"], 2 : ["Choose a food to feed this cow. (UNFINISHED)"]}
-var o = {1 : ["Close."], 2 : ["Close."]}
+var o = {1 : ["Cancel."], 2 : ["Cancel."]}
 var o2 = { 1 : [3], 2 : [3]}
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

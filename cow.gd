@@ -8,14 +8,18 @@ extends CharacterBody2D
 var target_position: Vector2
 var timervar = 0
 var directionvar = 1
+var stage : String
 signal breeding
 signal feeding
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if stage == "calfhood" :
+		scale.x = 0.145/2
+		scale.y = 0.145/2
+	elif stage == "adulthood" :
+		scale.x = 0.145
+		scale.y = 0.145
 	randomize()
-	position = Vector2(randi_range(300,1000),randi_range(100,550))
-	scale.x = 0.145
-	scale.y = 0.145
 	pass # Replace with function body.
 	detect.cow_clicked.connect(_clicked)
 	menu.id_pressed.connect( _on_id_pressed)
@@ -24,7 +28,8 @@ func _ready() -> void:
 
 func _clicked() :
 	state = "clicked"
-	menu.popup(Rect2i(self.position.x, self.position.y, 100, 100))
+	if not stage == "calfhood" :
+		menu.popup(Rect2i(self.position.x, self.position.y, 100, 100))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -41,11 +46,11 @@ func _process(delta: float) -> void:
 			timervar = 0
 			if (randi_range(0,10)) == 1 :
 				speed = 150
-				display.scale.x = -1  
+				display.scale.x = -1 
 				directionvar = -1
 			elif (randi_range(0,10)) == 2 :
 				speed = 150
-				display.scale.x = 1  
+				display.scale.x = 1
 				directionvar = 1
 			elif (randi_range(0,10)) == 3 :
 				speed = 0
@@ -63,13 +68,13 @@ func _process(delta: float) -> void:
 # bouncing off walls script
 	if self.position.x >= 1100 : 
 		state = "bounce"
-		display.scale.x = 1  
+		display.scale.x = 1
 		directionvar = 1
 		speed = 150
 		state = "active"
 	if self.position.x <= 100 : 
 		state = "bounce"
-		display.scale.x = -1  
+		display.scale.x = -1
 		directionvar = -1
 		speed = 150
 		state = "active"
@@ -99,9 +104,9 @@ func _process(delta: float) -> void:
 		speed * delta
 		)
 		if target_position.x > position.x :
-			display.scale.x = -1
+			display.scale.x = -1 
 		if target_position.x < position.x :
-			display.scale.x = 1
+			display.scale.x = 1 
 		if abs(position.y - target_position.y) < 1 and  abs(position.x - target_position.x) < 1:
 			await get_tree().create_timer(1).timeout
 			state = "active"

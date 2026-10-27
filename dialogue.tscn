@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://buvr4ik2mblqj"]
+[gd_scene load_steps=16 format=3 uid="uid://buvr4ik2mblqj"]
 
 [ext_resource type="Script" uid="uid://x60qdpe3okjk" path="res://scripts/dialogue_engine.gd" id="1_hojkw"]
 [ext_resource type="Script" uid="uid://bsg4fg7jvq3b5" path="res://scripts/dialoguebox.gd" id="2_we54p"]
@@ -13,6 +13,16 @@
 [ext_resource type="Script" uid="uid://dyqu82rh6iv2r" path="res://scripts/option_3.gd" id="11_trpid"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hlw5q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ajmj3"]
+bg_color = Color(0, 0, 0, 1)
+anti_aliasing_size = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mblti"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1lttb"]
+bg_color = Color(0, 0, 0, 1)
 
 [node name="Dialogue_Engine" type="Control"]
 layout_mode = 3
@@ -95,6 +105,8 @@ offset_top = 595.0
 offset_right = 400.0
 offset_bottom = 635.0
 mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_ajmj3")
 keep_pressed_outside = true
 text = "1"
 script = ExtResource("9_05vth")
@@ -106,6 +118,8 @@ offset_top = 595.0
 offset_right = 750.0
 offset_bottom = 635.0
 mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_mblti")
 text = "2"
 script = ExtResource("10_ngbnu")
 
@@ -116,6 +130,8 @@ offset_top = 595.0
 offset_right = 1100.0
 offset_bottom = 635.0
 mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_1lttb")
 text = "3"
 script = ExtResource("11_trpid")
 
