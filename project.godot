@@ -22,6 +22,7 @@ buses/default_bus_layout=""
 
 dialogueid="*res://scripts/dialogueid.gd"
 key="*res://scripts/key.gd"
+mouse="*res://mouse.gd"
 
 [display]
 

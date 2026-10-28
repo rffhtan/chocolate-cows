@@ -10,7 +10,6 @@ func _ready() -> void:
 	var button = Button.new()
 	button.pressed.connect(_button_pressed)
 	set_position(Vector2(550,320))
-	z_index = 5
 
 func _button_pressed():
 		if  manager.o2.has(dialogueid.dialogueid) and ((manager.o2[dialogueid.dialogueid])).size() >= 1 :

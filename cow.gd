@@ -5,14 +5,19 @@ extends CharacterBody2D
 @onready var menu = $PopupMenu
 @onready var display = $Sprite2D
 @onready var dialogue = get_node("/root/game/Dialogue_Engine")
+@onready var game = get_parent()
 var target_position: Vector2
 var timervar = 0
 var directionvar = 1
 var stage : String
+var tag : int 
 signal breeding
 signal feeding
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	tag = game.instancenum
+	game.cowprops[tag] =  [state, Vector2(position.x, position.y)]
 	if stage == "calfhood" :
 		scale.x = 0.145/2
 		scale.y = 0.145/2
@@ -28,8 +33,13 @@ func _ready() -> void:
 
 func _clicked() :
 	state = "clicked"
-	if not stage == "calfhood" :
+	if not stage == "calfhood" and mouse.mousestate == "menu":
 		menu.popup(Rect2i(self.position.x, self.position.y, 100, 100))
+	if not stage == "calfhood" and mouse.mousestate == "breed" :
+		state = "breeding"
+		game.clone("calfhood", Vector2(self.position.x, self.position.y))
+		state = "active"
+		dialogueid.dialogueid = 3
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -64,6 +74,7 @@ func _process(delta: float) -> void:
 				timervar = 20
 			elif (randi_range(0,10)) == 5 :
 				pass
+		game.cowprops[tag] =  [state, Vector2(position.x, position.y)]
 
 # bouncing off walls script
 	if self.position.x >= 1100 : 
@@ -113,14 +124,17 @@ func _process(delta: float) -> void:
 
 	if dialogueid.dialogueid == 3 and (not state == "following" and not state == "moving_to_target") :
 		state = "active"
-
+		mouse.mousestate = "menu"
 
 # on click behaviors 
 #breed
 func _on_id_pressed(id : int):
 		if id == 0 :
 			state = "breeding"
+			mouse.mousestate = "breed"
 			breeding.emit()
+			
+
 		if id == 1 :
 			state = "eating"
 			feeding.emit()
