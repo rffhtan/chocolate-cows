@@ -1,6 +1,7 @@
 extends CharacterBody2D
 @export var state = "active"
 @export var speed = 150
+@export var stage : String
 @onready var detect = $Area2D 
 @onready var menu = $PopupMenu
 @onready var display = $Sprite2D
@@ -9,15 +10,15 @@ extends CharacterBody2D
 var target_position: Vector2
 var timervar = 0
 var directionvar = 1
-var stage : String
 var tag : int 
 signal breeding
+signal breeded
 signal feeding
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	tag = game.instancenum
-	game.cowprops[tag] =  [state, Vector2(position.x, position.y)]
+	if tag != 0 :
+		game.cowprops[tag-1] =  [state, Vector2(position.x, position.y)]
 	if stage == "calfhood" :
 		scale.x = 0.145/2
 		scale.y = 0.145/2
@@ -28,19 +29,25 @@ func _ready() -> void:
 	pass # Replace with function body.
 	detect.cow_clicked.connect(_clicked)
 	menu.id_pressed.connect( _on_id_pressed)
+	menu.focus_exited.connect(_on_popup_menu_close_requested)
 	var dialogue_engine = get_node("../Dialogue_Engine")
 	dialogue_engine.connect_cow(self)
 
-func _clicked() :
-	state = "clicked"
-	if not stage == "calfhood" and mouse.mousestate == "menu":
-		menu.popup(Rect2i(self.position.x, self.position.y, 100, 100))
-	if not stage == "calfhood" and mouse.mousestate == "breed" :
-		state = "breeding"
-		game.clone("calfhood", Vector2(self.position.x, self.position.y))
-		state = "active"
-		dialogueid.dialogueid = 3
+func _clicked():
+	print("Clicked function:", state)
+	if mouse.mousestate == "breed":
+		if stage != "calfhood":
+			game.clone("calfhood", Vector2(position.x, position.y))
+			state = "active"
+			dialogueid.dialogueid = 3
+			c.choiceselected = false
+			breeded.emit()
+		return
 
+	state = "clicked"
+	if stage != "calfhood" and mouse.mousestate == "menu":
+		menu.popup(Rect2i(position.x, position.y, 100, 100))
+	print("State changed to clicked:", state)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 #active (as in idle) behaviors
@@ -74,7 +81,8 @@ func _process(delta: float) -> void:
 				timervar = 20
 			elif (randi_range(0,10)) == 5 :
 				pass
-		game.cowprops[tag] =  [state, Vector2(position.x, position.y)]
+		if tag != 0 :
+			game.cowprops[tag-1] =  [state, Vector2(position.x, position.y)]
 
 # bouncing off walls script
 	if self.position.x >= 1100 : 
@@ -93,9 +101,7 @@ func _process(delta: float) -> void:
 	if state == "clicked" :
 		if menu.visible :
 			speed = 0
-		elif menu.visible == false :
-			speed = 150
-			state = "active"
+
 
 	if state == "following":
 		speed = 150
@@ -121,25 +127,31 @@ func _process(delta: float) -> void:
 		if abs(position.y - target_position.y) < 1 and  abs(position.x - target_position.x) < 1:
 			await get_tree().create_timer(1).timeout
 			state = "active"
+			c.choiceselected = false;
 
-	if dialogueid.dialogueid == 3 and (not state == "following" and not state == "moving_to_target") :
-		state = "active"
-		mouse.mousestate = "menu"
 
 # on click behaviors 
 #breed
 func _on_id_pressed(id : int):
-		if id == 0 :
-			state = "breeding"
-			mouse.mousestate = "breed"
-			breeding.emit()
-			
+	c.choiceselected = true
+	if id == 0 :
+		print("Breed selected. Before:", state)
+		state = "breeding"
+		print("Breed selected. After:", state)
+		mouse.mousestate = "breed"
+		breeding.emit()
 
-		if id == 1 :
-			state = "eating"
-			feeding.emit()
-		if id == 2 :
-			state = "following"
+	if id == 1 :
+		state = "eating"
+		feeding.emit()
+	if id == 2 :
+		state = "following"
 
 #feed
 #lead 
+
+func _on_popup_menu_close_requested() -> void: 
+	if state == "clicked" and c.choiceselected == false:
+		state = "active"
+		mouse.mousestate = "menu"
+		print("test")

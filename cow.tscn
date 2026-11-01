@@ -29,7 +29,7 @@ script = ExtResource("4_tc63g")
 [node name="PopupMenu" type="PopupMenu" parent="."]
 transparent_bg = false
 oversampling_override = 1.0
-size = Vector2i(1176, 632)
+size = Vector2i(1176, 659)
 visible = true
 theme_override_fonts/font = ExtResource("3_m1w7b")
 theme_override_font_sizes/font_size = 200
