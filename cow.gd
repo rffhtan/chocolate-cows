@@ -106,9 +106,6 @@ func _process(delta: float) -> void:
 			mouse.mousestate = "menuclicked"
 			speed = 0
 
-	#if mouse.mousestate == "menu" :
-		#state = "active"
-
 	if state == "following":
 		speed = 150
 		if Input.is_action_just_pressed("mouse_leftclick"):
@@ -155,6 +152,15 @@ func _on_id_pressed(id : int):
 	if id == 1 :
 		state = "eating"
 		feeding.emit()
+		if dialogueid.dialogueid == 5 :
+			genotype = "Mc"
+			print(genotype)
+		if dialogueid.dialogueid == 6 :
+			genotype = "Ms"
+			print(genotype)
+		if dialogueid.dialogueid == 7 :
+			genotype = "Mt"
+			print(genotype)
 	if id == 2 :
 		print("following")
 		dialogueid.dialogueid = 0
