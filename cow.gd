@@ -106,8 +106,8 @@ func _process(delta: float) -> void:
 			mouse.mousestate = "menuclicked"
 			speed = 0
 
-	if mouse.mousestate == "menu" :
-		state = "active"
+	#if mouse.mousestate == "menu" :
+		#state = "active"
 
 	if state == "following":
 		speed = 150
@@ -135,14 +135,15 @@ func _process(delta: float) -> void:
 			state = "active"
 			c.choiceselected = false;
 
-	#if dialogueid.dialogueid == 3:
-		#state = "active"
-		#mouse.mousestate = "menu"
+	if dialogueid.dialogueid == 3:
+		state = "active"
+		mouse.mousestate = "menu"
 
 
 # on click behaviors 
 #breed
 func _on_id_pressed(id : int):
+	mouse.mousestate = "menu"
 	c.choiceselected = true
 	if id == 0 :
 		print("Breed selected. Before:", self.state)
@@ -155,6 +156,8 @@ func _on_id_pressed(id : int):
 		state = "eating"
 		feeding.emit()
 	if id == 2 :
+		print("following")
+		dialogueid.dialogueid = 0
 		state = "following"
 
 #feed
