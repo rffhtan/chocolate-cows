@@ -28,5 +28,4 @@ func _options():
 func _process(delta: float) -> void:
 	if dialogueid.dialogueid == 3 :
 		hide()
-
 	pass

@@ -136,6 +136,20 @@ func _process(delta: float) -> void:
 		state = "active"
 		mouse.mousestate = "menu"
 
+	if state == "eating" :
+		if dialogueid.dialogueid == 5 :
+			genotype = "Mc"
+			state = "active"
+			dialogueid.dialogueid = 3
+		if dialogueid.dialogueid == 6 :
+			genotype = "Ms"
+			state = "active"
+			dialogueid.dialogueid = 3
+		if dialogueid.dialogueid == 7 :
+			genotype = "Mt"
+			state = "active"
+			dialogueid.dialogueid = 3
+
 
 # on click behaviors 
 #breed
@@ -152,15 +166,7 @@ func _on_id_pressed(id : int):
 	if id == 1 :
 		state = "eating"
 		feeding.emit()
-		if dialogueid.dialogueid == 5 :
-			genotype = "Mc"
-			print(genotype)
-		if dialogueid.dialogueid == 6 :
-			genotype = "Ms"
-			print(genotype)
-		if dialogueid.dialogueid == 7 :
-			genotype = "Mt"
-			print(genotype)
+
 	if id == 2 :
 		print("following")
 		dialogueid.dialogueid = 0
