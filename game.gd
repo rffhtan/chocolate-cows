@@ -30,15 +30,9 @@ func _process(delta: float) -> void:
 	cow_count = get_child_count() - 2
 	if (Input.is_action_just_pressed("ui_accept")) and cow_count <= 30 :
 		clone("adulthood", Vector2(randi_range(300,1000),randi_range(100,550)), "MM")
-	print(cowprops.values())
-	breedingcow = _find_state_cow("breeding")
+	#print(cowprops.values())
  
 func _find_state_cow(target) :
 	for i in cowprops.size():
 		if  ((cowprops[i])[0]) == target :
 			return key
-
-
-func _breeding_done() :
-	print(get_child(breedingcow+1).state)
-	get_child(breedingcow+1).state = "active"

@@ -35,8 +35,11 @@ func _ready() -> void:
 	dialogue_engine.connect_cow(self)
 	
 
+#func _find_child_genotype():
+	#if self.genotype == "MM" :
+		#return  
+
 func _clicked():
-	print("Clicked function:", state)
 	if mouse.mousestate == "breed":
 		if stage != "calfhood" and state != "clicked" and state != "breeding":
 			game.clone("calfhood", Vector2(position.x, position.y), "MM")
@@ -50,7 +53,6 @@ func _clicked():
 	state = "clicked"
 	if stage != "calfhood" and mouse.mousestate == "menu":
 		menu.popup(Rect2i(position.x, position.y, 100, 100))
-	print("State changed to clicked:", state)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 #active (as in idle) behaviors
@@ -157,9 +159,7 @@ func _on_id_pressed(id : int):
 	mouse.mousestate = "menu"
 	c.choiceselected = true
 	if id == 0 :
-		print("Breed selected. Before:", self.state)
 		state = "breeding"
-		print("Breed selected. After:", self.state)
 		mouse.mousestate = "breed"
 		breeding.emit()
 
@@ -168,7 +168,6 @@ func _on_id_pressed(id : int):
 		feeding.emit()
 
 	if id == 2 :
-		print("following")
 		dialogueid.dialogueid = 0
 		state = "following"
 
@@ -179,4 +178,3 @@ func _on_popup_menu_close_requested() -> void:
 	if state == "clicked" and c.choiceselected == false:
 		state = "active"
 		mouse.mousestate = "menu"
-		print("test")
