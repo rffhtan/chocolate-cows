@@ -11,6 +11,7 @@ var target_position: Vector2
 var timervar = 0
 var directionvar = 1
 var tag : int 
+var genotype : String
 signal breeding
 signal breeded
 signal feeding
@@ -32,14 +33,16 @@ func _ready() -> void:
 	menu.focus_exited.connect(_on_popup_menu_close_requested)
 	var dialogue_engine = get_node("../Dialogue_Engine")
 	dialogue_engine.connect_cow(self)
+	
 
 func _clicked():
 	print("Clicked function:", state)
 	if mouse.mousestate == "breed":
-		if stage != "calfhood":
-			game.clone("calfhood", Vector2(position.x, position.y))
+		if stage != "calfhood" and state != "clicked" and state != "breeding":
+			game.clone("calfhood", Vector2(position.x, position.y), "MM")
 			state = "active"
 			dialogueid.dialogueid = 3
+			mouse.mousestate = "menu"
 			c.choiceselected = false
 			breeded.emit()
 		return
@@ -100,8 +103,11 @@ func _process(delta: float) -> void:
 
 	if state == "clicked" :
 		if menu.visible :
+			mouse.mousestate = "menuclicked"
 			speed = 0
 
+	if mouse.mousestate == "menu" :
+		state = "active"
 
 	if state == "following":
 		speed = 150
@@ -129,15 +135,19 @@ func _process(delta: float) -> void:
 			state = "active"
 			c.choiceselected = false;
 
+	#if dialogueid.dialogueid == 3:
+		#state = "active"
+		#mouse.mousestate = "menu"
+
 
 # on click behaviors 
 #breed
 func _on_id_pressed(id : int):
 	c.choiceselected = true
 	if id == 0 :
-		print("Breed selected. Before:", state)
+		print("Breed selected. Before:", self.state)
 		state = "breeding"
-		print("Breed selected. After:", state)
+		print("Breed selected. After:", self.state)
 		mouse.mousestate = "breed"
 		breeding.emit()
 

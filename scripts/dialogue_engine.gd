@@ -14,7 +14,8 @@ var previousdiaid = 255
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_position(Vector2(150.0,595.0))
-	dialogueid.dialogueid = 3
+	dialogueid.dialogueid = 0
+	hide()
 	pass # Replace with function body.
 	
 
@@ -34,8 +35,10 @@ func _process(delta: float) -> void:
 
 func _on_cow_feeding() :
 	dialogueid.dialogueid = 2
+	show()
 	dialogue()
 
 func _on_cow_breeding() :
 	dialogueid.dialogueid = 1
+	show()
 	dialogue()
