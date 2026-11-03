@@ -21,6 +21,7 @@ func clone(stage, pos : Vector2, genotype):
 	instance.stage = stage
 	instance.tag = instancenum
 	instance.position = pos
+	instance.genotype = genotype
 	add_child(instance)
 	#instance.breeded.connect(_breeding_done)
 	instancenum += 1

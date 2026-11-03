@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfe4877x1dr7d"]
+[gd_scene load_steps=6 format=3 uid="uid://cfe4877x1dr7d"]
 
 [ext_resource type="Script" uid="uid://dvmnicyis47jl" path="res://game.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://dpgrhw8gbme1g" path="res://cow.tscn" id="2_e2o6t"]
+[ext_resource type="AudioStream" uid="uid://d3msjq3w503hq" path="res://assets/u_nhimhor2050-my-farm-of-love-339846.mp3" id="4_7jktm"]
 [ext_resource type="PackedScene" uid="uid://buvr4ik2mblqj" path="res://dialogue.tscn" id="4_fc0e3"]
+[ext_resource type="Script" uid="uid://chwr7r2jas4qu" path="res://audio_stream_player.gd" id="5_ryrav"]
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_80nbo")
@@ -16,3 +18,9 @@ position = Vector2(500, 500)
 input_pickable = true
 speed = 80
 stage = "adulthood"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_7jktm")
+autoplay = true
+parameters/looping = false
+script = ExtResource("5_ryrav")

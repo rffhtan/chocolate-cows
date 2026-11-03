@@ -11,7 +11,7 @@ var target_position: Vector2
 var timervar = 0
 var directionvar = 1
 var tag : int 
-var genotype : String
+var genotype : String 
 signal breeding
 signal breeded
 signal feeding
@@ -21,11 +21,11 @@ func _ready() -> void:
 	if tag != 0 :
 		game.cowprops[tag-1] =  [state, Vector2(position.x, position.y)]
 	if stage == "calfhood" :
-		scale.x = 0.145/2
-		scale.y = 0.145/2
+		scale.x = 0.125
+		scale.y = 0.125
 	elif stage == "adulthood" :
-		scale.x = 0.145
-		scale.y = 0.145
+		scale.x = 0.25
+		scale.y = 0.25
 	randomize()
 	pass # Replace with function body.
 	detect.cow_clicked.connect(_clicked)
@@ -42,7 +42,8 @@ func _ready() -> void:
 func _clicked():
 	if mouse.mousestate == "breed":
 		if stage != "calfhood" and state != "clicked" and state != "breeding":
-			game.clone("calfhood", Vector2(position.x, position.y), "MM")
+			bb.parentgenotypes[1] = genotype
+			game.clone("calfhood", Vector2(position.x, position.y), bb.parentgenotypes[randi_range(0,1)])
 			state = "active"
 			dialogueid.dialogueid = 3
 			mouse.mousestate = "menu"
@@ -160,6 +161,7 @@ func _on_id_pressed(id : int):
 	c.choiceselected = true
 	if id == 0 :
 		state = "breeding"
+		bb.parentgenotypes[0] = genotype
 		mouse.mousestate = "breed"
 		breeding.emit()
 

@@ -24,6 +24,7 @@ dialogueid="*res://scripts/dialogueid.gd"
 key="*res://scripts/key.gd"
 mouse="*res://mouse.gd"
 c="*res://c.gd"
+bb="*res://bb.gd"
 
 [display]
 
