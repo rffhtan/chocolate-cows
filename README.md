@@ -5,7 +5,7 @@ This establishes basic cow behavior (such as backflips and being led), cow genot
 Look forward to more features!!
 
 # How to Play
-PRESS SPACE TO SPAWN MORE COWS!!!
+PRESS SPACE TO SPAWN MORE COWS!!! (limit of 30 to prevent lag)
 
 Click on cows to access their player-led behaviors, such as leading them, breeding and feeding them.
 
