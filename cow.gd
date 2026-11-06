@@ -12,6 +12,7 @@ var timervar = 0
 var directionvar = 1
 var tag : int 
 var genotype : String 
+var gengen
 signal breeding
 signal breeded
 signal feeding
@@ -35,15 +36,22 @@ func _ready() -> void:
 	dialogue_engine.connect_cow(self)
 	
 
-#func _find_child_genotype():
-	#if self.genotype == "MM" :
-		#return  
+func _find_child_genotype():
+	if randi_range(1,4) == 1:
+		gengen = (bb.parentgenotypes[0].substr(0,1) + bb.parentgenotypes[1].substr(0,1))
+	elif randi_range(1,4) == 2:
+		gengen = (bb.parentgenotypes[0].substr(0,1) + bb.parentgenotypes[1].substr(1,1))
+	elif randi_range(1,4) == 3:
+		gengen = (bb.parentgenotypes[0].substr(1,1) + bb.parentgenotypes[1].substr(0,1))
+	elif randi_range(1,4) == 4:
+		gengen = (bb.parentgenotypes[0].substr(1,1) + bb.parentgenotypes[1].substr(1,1))
 
 func _clicked():
 	if mouse.mousestate == "breed":
 		if stage != "calfhood" and state != "clicked" and state != "breeding":
 			bb.parentgenotypes[1] = genotype
-			game.clone("calfhood", Vector2(position.x, position.y), bb.parentgenotypes[randi_range(0,1)])
+			_find_child_genotype()
+			game.clone("calfhood", Vector2(position.x, position.y), gengen)
 			state = "active"
 			dialogueid.dialogueid = 3
 			mouse.mousestate = "menu"
@@ -54,7 +62,7 @@ func _clicked():
 	state = "clicked"
 	if stage != "calfhood" and mouse.mousestate == "menu":
 		menu.popup(Rect2i(position.x, position.y, 100, 100))
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+ 
 func _process(delta: float) -> void:
 #active (as in idle) behaviors
 	if state == "active" :

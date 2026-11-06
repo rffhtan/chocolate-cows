@@ -21,6 +21,5 @@ stage = "adulthood"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_7jktm")
-autoplay = true
 parameters/looping = false
 script = ExtResource("5_ryrav")
