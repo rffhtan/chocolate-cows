@@ -22,6 +22,7 @@ func clone(stage, pos : Vector2, genotype):
 	instance.tag = instancenum
 	instance.position = pos
 	instance.genotype = genotype
+	instance._convert_to_phenotype(genotype)
 	add_child(instance)
 	#instance.breeded.connect(_breeding_done)
 	instancenum += 1
@@ -31,7 +32,7 @@ func _process(delta: float) -> void:
 	cow_count = get_child_count() - 2
 	if (Input.is_action_just_pressed("ui_accept")) and cow_count <= 30 :
 		clone("adulthood", Vector2(randi_range(300,1000),randi_range(100,550)), "MM")
-	#print(cowprops.values())
+	print(cowprops.values())
  
 func _find_state_cow(target) :
 	for i in cowprops.size():

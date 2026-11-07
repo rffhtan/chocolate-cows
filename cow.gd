@@ -12,7 +12,9 @@ var timervar = 0
 var directionvar = 1
 var tag : int 
 var genotype : String 
+var phenotype : String 
 var gengen
+var phephe
 signal breeding
 signal breeded
 signal feeding
@@ -45,12 +47,17 @@ func _find_child_genotype():
 		gengen = (bb.parentgenotypes[0].substr(1,1) + bb.parentgenotypes[1].substr(0,1))
 	elif randi_range(1,4) == 4:
 		gengen = (bb.parentgenotypes[0].substr(1,1) + bb.parentgenotypes[1].substr(1,1))
+func _convert_to_phenotype(geno) :
+	if geno.contains("M") :
+		phenotype = "MM"
 
 func _clicked():
 	if mouse.mousestate == "breed":
 		if stage != "calfhood" and state != "clicked" and state != "breeding":
 			bb.parentgenotypes[1] = genotype
 			_find_child_genotype()
+			print(gengen)
+			_convert_to_phenotype(gengen)
 			game.clone("calfhood", Vector2(position.x, position.y), gengen)
 			state = "active"
 			dialogueid.dialogueid = 3

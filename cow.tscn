@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dpgrhw8gbme1g"]
+[gd_scene load_steps=7 format=3 uid="uid://dpgrhw8gbme1g"]
 
 [ext_resource type="Script" uid="uid://bugs8n3hgcxfq" path="res://cow.gd" id="1_nuh3y"]
 [ext_resource type="Script" uid="uid://fd3sa5ptrv82" path="res://cowarea.gd" id="2_y5k1g"]
 [ext_resource type="FontFile" uid="uid://b3h7kd2swjemo" path="res://pixelta/Pixelta.ttf" id="3_m1w7b"]
-[ext_resource type="Texture2D" uid="uid://g5pfmun0ycsp" path="res://assets/cow.png" id="3_tc63g"]
 [ext_resource type="Script" uid="uid://dsv12vyuss7y1" path="res://display.gd" id="4_tc63g"]
 [ext_resource type="Script" uid="uid://bsbt57l7o8013" path="res://menu.gd" id="5_uaxjc"]
 
@@ -23,7 +22,6 @@ shape = SubResource("RectangleShape2D_yj05v")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(12, 4)
-texture = ExtResource("3_tc63g")
 region_enabled = true
 region_rect = Rect2(737.94336, 873.8685, 1008.98804, 777.9459)
 script = ExtResource("4_tc63g")
